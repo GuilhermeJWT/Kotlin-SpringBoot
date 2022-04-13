@@ -1,14 +1,35 @@
 package br.com.systemsgs.service
 
-import br.com.systemsgs.model.Curso
+import br.com.systemsgs.dto.TopicoDTO
 import br.com.systemsgs.model.Topico
-import br.com.systemsgs.model.Usuario
 import org.springframework.stereotype.Service
-import java.util.*
+import kotlin.collections.ArrayList
 
 @Service
-class TopicoService(private var topicos: List<Topico>) {
+class TopicoService(private var topicos: List<Topico> = ArrayList(), private val cursoService: CursoService, private val usuarioService: UsuarioService) {
 
+    fun listar(): List<Topico> {
+        return topicos
+    }
+
+    fun buscarPorId(id: Long): Topico {
+        return topicos.stream().filter({
+            t -> t.id == id
+        }).findFirst().get()
+    }
+
+    fun cadastrar(dto: TopicoDTO) {
+        topicos = topicos.plus(Topico(
+            id = topicos.size.toLong() + 1,
+            titulo = dto.titulo,
+            mensagem = dto.mensagem,
+            curso = cursoService.buscarPorId(dto.idCurso),
+            autor = usuarioService.buscarPorId(dto.idAutor)
+        ))
+    }
+
+
+    /*
     init {
         val topico = Topico(
             id = 1,
@@ -33,14 +54,6 @@ class TopicoService(private var topicos: List<Topico>) {
         )
         topicos = Arrays.asList(topico, topico2, topico3)
     }
+     */
 
-    fun listar(): List<Topico> {
-        return topicos
-    }
-
-    fun buscarPorId(id: Long): Topico {
-        return topicos.stream().filter({
-            t -> t.id == id
-        }).findFirst().get()
-    }
 }
