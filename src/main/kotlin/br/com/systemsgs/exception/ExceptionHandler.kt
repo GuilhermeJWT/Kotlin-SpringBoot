@@ -2,6 +2,7 @@ package br.com.systemsgs.exception
 
 import br.com.systemsgs.dto.ErrorView
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -28,6 +29,19 @@ class ExceptionHandler {
             status = HttpStatus.INTERNAL_SERVER_ERROR.value(),
             erro = HttpStatus.INTERNAL_SERVER_ERROR.name,
             message = exception.message,
+            path = request.servletPath
+        )
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleBadRequest(exception: MethodArgumentNotValidException, request: HttpServletRequest): ErrorView {
+        val errorMessage = HashMap<String, String?>()
+        exception.bindingResult.fieldErrors.forEach{e -> errorMessage.put(e.field, e.defaultMessage)}
+        return ErrorView(
+            status = HttpStatus.BAD_REQUEST.value(),
+            erro = HttpStatus.BAD_REQUEST.name,
+            message = errorMessage.toString(),
             path = request.servletPath
         )
     }

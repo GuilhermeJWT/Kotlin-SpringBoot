@@ -6,15 +6,16 @@ import javax.validation.constraints.Size
 
 data class TopicoDTOForm (
 
-    @field:NotEmpty @field:Size(min = 5, max = 100)
+    @field:NotEmpty(message = "Titulo deve ser Informado!")
+    @field:Size(min = 5, max = 100, message = "Titulo deve conter de 5 a 100 Caracteres!")
     val titulo: String,
 
-    @field:NotEmpty
+    @field:NotEmpty(message = "Mensagem deve ser Informado!")
     val mensagem: String,
 
-    @field:NotNull
+    @field:NotNull(message = "ID Curso deve ser Informado!")
     val idCurso: Long,
 
-    @field:NotNull
+    @field:NotNull(message = "ID Autor deve ser Informado!")
     val idAutor: Long
 )
