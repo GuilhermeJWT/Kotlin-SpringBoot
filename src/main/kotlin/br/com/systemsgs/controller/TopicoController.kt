@@ -21,14 +21,14 @@ class TopicoController (private val service: TopicoService){
         return service.buscarPorId(id)
     }
 
-    @PutMapping("/atualizar")
-    fun atualizar(@RequestBody @Valid form: AtualizacaoTopicoForm){
-        service.atualizar(form)
-    }
-
     @PostMapping("/salvar")
     fun cadastrar(@RequestBody @Valid form: TopicoDTOForm){
         service.cadastrar(form)
+    }
+
+    @PutMapping("/atualizar")
+    fun atualizar(@RequestBody @Valid form: AtualizacaoTopicoForm){
+        service.atualizar(form)
     }
 
 }
