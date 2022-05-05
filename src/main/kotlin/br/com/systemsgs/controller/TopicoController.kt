@@ -1,5 +1,6 @@
 package br.com.systemsgs.controller
 
+import br.com.systemsgs.dto.AtualizacaoTopicoForm
 import br.com.systemsgs.dto.TopicoDTOForm
 import br.com.systemsgs.dto.TopicoView
 import br.com.systemsgs.service.TopicoService
@@ -21,8 +22,13 @@ class TopicoController (private val service: TopicoService){
     }
 
     @PostMapping("/salvar")
-    fun cadastrar(@RequestBody @Valid dto: TopicoDTOForm){
-        service.cadastrar(dto)
+    fun cadastrar(@RequestBody @Valid form: TopicoDTOForm){
+        service.cadastrar(form)
+    }
+
+    @PutMapping("/atualizar")
+    fun atualizar(@RequestBody @Valid form: AtualizacaoTopicoForm){
+        service.atualizar(form)
     }
 
 }

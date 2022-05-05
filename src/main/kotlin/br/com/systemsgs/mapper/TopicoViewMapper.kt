@@ -3,7 +3,6 @@ package br.com.systemsgs.mapper
 import br.com.systemsgs.dto.TopicoView
 import br.com.systemsgs.model.Topico
 import org.springframework.stereotype.Component
-
 @Component
 class TopicoViewMapper: Mapper<Topico, TopicoView> {
 
