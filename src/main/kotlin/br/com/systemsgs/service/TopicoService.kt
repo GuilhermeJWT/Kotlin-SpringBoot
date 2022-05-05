@@ -50,6 +50,13 @@ class TopicoService(private var topicos: List<Topico> = ArrayList(),
         topicos = topicos.plus((topico))
     }
 
+    fun delete(id: Long) {
+        val topico =  topicos.stream().filter { t ->
+            t.id == id
+        }.findFirst().get()
+        topicos = topicos.minus(topico)
+    }
+
     /*
     init {
         val topico = Topico(

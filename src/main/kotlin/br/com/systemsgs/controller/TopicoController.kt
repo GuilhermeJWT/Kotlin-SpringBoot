@@ -31,4 +31,9 @@ class TopicoController (private val service: TopicoService){
         service.cadastrar(form)
     }
 
+    @DeleteMapping("/delete/{id}")
+    fun deletar(@PathVariable id: Long){
+        service.delete(id)
+    }
+
 }
