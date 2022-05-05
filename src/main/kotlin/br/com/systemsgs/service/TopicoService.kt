@@ -28,12 +28,6 @@ class TopicoService(private var topicos: List<Topico> = ArrayList(),
         return topicoViewMapper.map(topico)
     }
 
-    fun cadastrar(form: TopicoDTOForm) {
-        val topico = topicoFormMapper.map(form)
-        topico.id = topicos.size.toLong() + 1
-        topicos = topicos.plus((topico))
-    }
-
     fun atualizar(form: AtualizacaoTopicoForm) {
         val topico =  topicos.stream().filter { t ->
             t.id == form.id
@@ -48,6 +42,12 @@ class TopicoService(private var topicos: List<Topico> = ArrayList(),
             status = topico.status,
             dataCriacao = topico.dataCriacao
         ))
+    }
+
+    fun cadastrar(form: TopicoDTOForm) {
+        val topico = topicoFormMapper.map(form)
+        topico.id = topicos.size.toLong() + 1
+        topicos = topicos.plus((topico))
     }
 
     /*
